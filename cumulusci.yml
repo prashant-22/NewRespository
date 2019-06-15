@@ -1,0 +1,25 @@
+project:
+    name: DemoCumulusCI
+    package:
+        name:  DemoPackage
+        namespace: DemoCumulusCI
+        api_version: '45.0'
+
+tasks:
+    robot:
+        options:
+            suites: robot/DemoCumulusCI/tests
+            options:
+                outputdir: robot/DemoCumulusCI/results
+
+    robot_testdoc:
+        options:
+            path: robot/DemoCumulusCI/tests
+            output: robot/DemoCumulusCI/doc/DemoCumulusCI_tests.html
+
+orgs:
+    scratch:
+        dev_namespaced:
+            config_file: orgs/dev.json
+            days: 7
+            namespaced: True
