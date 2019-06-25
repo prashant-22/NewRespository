@@ -1,0 +1,3 @@
+<testsuite tests="1">
+  <testcase classname="Account_Information_test" name="validateStandardController" time="270" />
+</testsuite>
