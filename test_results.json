@@ -1,0 +1,14 @@
+[
+    {
+        "Children": null,
+        "ClassName": "Account_Information_test",
+        "Method": "validateStandardController",
+        "Message": null,
+        "Outcome": "Pass",
+        "StackTrace": null,
+        "Stats": {
+            "duration": 270
+        },
+        "TestTimestamp": "2019-06-19T09:52:53.000+0000"
+    }
+]

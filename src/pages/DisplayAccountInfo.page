@@ -1,0 +1,5 @@
+<apex:page standardController="Account" Extensions="Account_Information">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>{!acc.Name}</h1>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>
