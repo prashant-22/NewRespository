@@ -26,3 +26,8 @@ test_release:
      command: |
       cci task run update_package_xml
 
+workflow:
+  version: 2
+  test:
+  jobs:
+   - test_release
