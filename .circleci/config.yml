@@ -8,8 +8,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-
-test_release:
+ test_release:
     <<: *defaults
     environment:
       CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
@@ -21,13 +20,11 @@ test_release:
            if [ "$CIRCLE_BRANCH" != "master" ] && [ -z "$CIRCLE_PULL_REQUEST" ]; then
               circleci step halt
             fi
-    -run:
-     name: create a package
-     command: |
-      cci task run update_package_xml
-
+    - run:  
+         name: skip unless master or pre build
+         command: |
+           cci task run update_package_xml
 workflow:
   version: 2
-  test:
   jobs:
    - test_release
