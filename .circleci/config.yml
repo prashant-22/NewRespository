@@ -1,8 +1,11 @@
 version: 2
-jobs:
+Jobs:
  build:
   environment:
    cumulusci.core.keychain.EnvironmentProjectKeychain
+  machine: 
+   python:
+    version: 3.7.0
   steps:
   - run :  'pip install --upgrade pip'
   - run :   'pip install --upgrade cumulusci'
