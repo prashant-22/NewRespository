@@ -1,16 +1,14 @@
-machine:
-  python:
-   version: 2.0
-jobs:
- environment:
-  CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
- dependencies:
-  override:
-    - 'pip install --upgrade pip'
-    - 'pip install --upgrade -r requirements.txt'
-  test:
-   override:
-    - 'cci flow run ci_feature_cumulus --org feature'
-  post:
-    - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
-    - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
+version: 2
+Jobs:
+ build:
+  environment:
+   cumulusci.core.keychain.EnvironmentProjectKeychain
+  steps:
+  - run :  'pip install --upgrade pip'
+  - run :   'pip install --upgrade cumulusci'
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
