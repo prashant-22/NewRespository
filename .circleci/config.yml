@@ -1,15 +1,31 @@
-machine:
-  python:
-    version: 3.7.0
-environment:
-  CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
-dependencies:
+version: 2
+jobs:
+
+  build:
+    environment: 
+      CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
+      dependencies:
   override:
     - 'pip install --upgrade pip'
-    - 'pip install --upgrade -r requirements.txt'
+    - 'pip install --upgrade cumulusci'
+    - 'mkdir ~/.appcloud'
+    - 'echo $SFDX_CONFIG > ~/.appcloud/workspace-config.json'
+    - 'echo $SFDX_HUB_ORG > ~/.appcloud/hubOrg.json'
+    - 'heroku plugins:install salesforce-alm@preview'
+    - 'heroku force --help'
 test:
+  pre:
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cci flow run ci_master --org packaging; fi'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cci flow run release_beta --org packaging; fi'
   override:
-    - 'cci flow run ci_feature_cumulus --org feature'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cci flow run ci_beta --org beta --delete-org; else cci flow run ci_feature --org feature --delete-org; fi'
   post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
+    - 'if [[ $CIRCLE_BRANCH != "master" ]]; then cp test_results.json $CIRCLE_ARTIFACTS; fi'
+    #- 'if [[ $CIRCLE_BRANCH != "master" ]]; then cci task run apextestsdb_upload; fi'
+deployment:
+  master_to_feature:
+    branch: master
+    commands:
+      - 'cci task run github_master_to_feature'
