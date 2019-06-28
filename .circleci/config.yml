@@ -1,7 +1,7 @@
 machine:
   python:
    version: 2.0
-job:
+jobs:
  environment:
   CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
  dependencies:
