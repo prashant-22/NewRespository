@@ -9,7 +9,7 @@ jobs:
   steps:
   - run :  'pip install --upgrade pip'
   - run :   'pip install --upgrade cumulusci'
-  - run :   'if [[ $CIRCLE_BRANCH == "master" ]]; then cci flow run ci_master --org avalara; fi'
+  - run :   'git clone https://github.com/prashant-22/NewRespository'
 workflows:
   version: 2
   build:
