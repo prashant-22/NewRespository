@@ -10,8 +10,15 @@ jobs:
   - run :  'pip install --upgrade pip'
   - run :   'pip install --upgrade cumulusci'
   - run :   'git clone https://github.com/prashant-22/NewRespository'
-  - run :   'cd NewRespository'
-  - run :   'cci org list'
+  - run:
+          name: Install sfdx
+          command: |
+            mkdir sfdx
+            wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJ -C sfdx --strip-components 1
+            ./sfdx/install
+            cd NewRespository
+            echo $SFDX_HUB_KEY | base64 --decode > sfdx.key
+            sfdx force:auth:jwt:grant --clientid $SFDX_CLIENT_KEY --jwtkeyfile sfdx.key --username $SFDX_HUB_USERNAME --setdefaultdevhubusername -a hub
 workflows:
   version: 2
   build:
