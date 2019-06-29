@@ -10,6 +10,7 @@ jobs:
   - run :  'pip install --upgrade pip'
   - run :   'pip install --upgrade cumulusci'
   - run :   'git clone https://github.com/prashant-22/NewRespository'
+  - run :   'cd NewRespository'
 workflows:
   version: 2
   build:
